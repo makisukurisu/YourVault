@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="YourVault.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YourVault"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:views="using:YourVault.Views"
+    mc:Ignorable="d"
+    >
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="BaseAlt"/>
+    </Window.SystemBackdrop>
+
+    <NavigationView x:Name="MainNavigationView" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="MainNavigationView_SelectionChanged">
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="Акаунти" Icon="People" Tag="Accounts"/>
+            <NavigationViewItem Content="Баланси" Icon="Memo" Tag="Balances"/>
+            <NavigationViewItem Content="Транзакції" Icon="Page" Tag="Transactions"/>
+        </NavigationView.MenuItems>
+        <NavigationView.FooterMenuItems>
+            <NavigationViewItem Content="Провайдери" Icon="FourBars" Tag="Providers"/>
+            <NavigationViewItem Content="Налаштування" Icon="Setting" Tag="Settings"/>
+        </NavigationView.FooterMenuItems>
+
+        <Grid>
+            <Frame x:Name="MainFrame">
+                <views:BlankMainPage/>
+            </Frame>
+        </Grid>
+    </NavigationView>
+</Window>
