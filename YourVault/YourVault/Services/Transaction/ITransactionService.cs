@@ -7,16 +7,32 @@ using System.Threading.Tasks;
 
 namespace YourVault.Services.Transaction
 {
+    public class TransactionSearchParams
+    {
+        public int page { get; set; }
+        public int? accountID { get; set; }
+        public string Comment { get; set; }
+
+        public TransactionSearchParams(int page, int? accountID, string Comment)
+        {
+            this.page = page;
+            this.accountID = accountID;
+            this.Comment = Comment;
+        }
+    }
     internal interface ITransactionService
     {
-        public ObservableCollection<ViewModels.Transaction> GetTransactions();
-        public ObservableCollection<ViewModels.Transaction> GetTransactions(int accountID);
+        public TransactionSearchParams searchParams { get; set; }
 
-        public ObservableCollection<ViewModels.Transaction> GetTransactions(string Comment);
+        public ObservableCollection<Models.Transaction> GetTransactions();
+        public ObservableCollection<Models.Transaction> GetTransactions(int accountID);
+        public ObservableCollection<Models.Transaction> GetTransactions(string Comment);
+
+        public ObservableCollection<Models.Transaction> GetTransactionsPage(TransactionSearchParams searchParams);
 
         public void UpdateTransactions();
 
-        public void AddTransaction(ViewModels.Transaction transaction);
-        public void AddTransaction(ViewModels.Transaction transaction, bool Update);
+        public void AddTransaction(Models.Transaction transaction);
+        public void AddTransaction(Models.Transaction transaction, bool Update);
     }
 }

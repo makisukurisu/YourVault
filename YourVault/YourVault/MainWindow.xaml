@@ -13,21 +13,37 @@
         <MicaBackdrop Kind="BaseAlt"/>
     </Window.SystemBackdrop>
 
-    <NavigationView x:Name="MainNavigationView" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="MainNavigationView_SelectionChanged">
-        <NavigationView.MenuItems>
-            <NavigationViewItem Content="Акаунти" Icon="People" Tag="Accounts"/>
-            <NavigationViewItem Content="Баланси" Icon="Memo" Tag="Balances"/>
-            <NavigationViewItem Content="Транзакції" Icon="Page" Tag="Transactions"/>
-        </NavigationView.MenuItems>
-        <NavigationView.FooterMenuItems>
-            <NavigationViewItem Content="Провайдери" Icon="FourBars" Tag="Providers"/>
-            <NavigationViewItem Content="Налаштування" Icon="Setting" Tag="Settings"/>
-        </NavigationView.FooterMenuItems>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Grid>
-            <Frame x:Name="MainFrame">
-                <views:BlankMainPage/>
-            </Frame>
+        <Grid x:Name="TitleGrid" ColumnSpacing="6" Margin="12, 0, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" x:Name="AppImage" Source="Images/Square44x44Logo.scale-100.png" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="1" Text="Your Vault" Style="{StaticResource CaptionTextBlockStyle}" VerticalAlignment="Center" TextWrapping="NoWrap" HorizontalAlignment="Left"></TextBlock>
         </Grid>
-    </NavigationView>
+
+        <NavigationView Grid.Row="1" x:Name="MainNavigationView" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="MainNavigationView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Акаунти" Icon="People" Tag="Accounts"/>
+                <NavigationViewItem Content="Баланси" Icon="Memo" Tag="Balances"/>
+                <NavigationViewItem Content="Транзакції" Icon="Page" Tag="Transactions"/>
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="Провайдери" Icon="FourBars" Tag="Providers"/>
+                <NavigationViewItem Content="Налаштування" Icon="Setting" Tag="Settings"/>
+            </NavigationView.FooterMenuItems>
+
+            <Grid>
+                <Frame x:Name="MainFrame">
+                    <views:BlankMainPage/>
+                </Frame>
+            </Grid>
+        </NavigationView>
+    </Grid>
 </Window>

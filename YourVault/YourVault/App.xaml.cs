@@ -17,9 +17,11 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using YourVault.Database;
 using YourVault.External;
 using YourVault.Services.Account;
+using YourVault.Services.Balance;
 using YourVault.Services.BankProviders;
 using YourVault.Services.Transaction;
 
@@ -35,6 +37,7 @@ namespace YourVault
     {
 
         private static Timer timer;
+        public static Microsoft.UI.Dispatching.DispatcherQueue DispatcherQueue { get; private set; }
 
         public App()
         {
@@ -44,7 +47,7 @@ namespace YourVault
 
             ConfigureServices();
 
-            timer = new Timer(TimeSpan.FromSeconds(60).TotalMilliseconds);
+            timer = new Timer(TimeSpan.FromSeconds(120).TotalMilliseconds);
             timer.Start();
             timer.AutoReset = true;
             timer.Elapsed += new ElapsedEventHandler(UpdateTransactions);
@@ -52,8 +55,10 @@ namespace YourVault
 
         private static void UpdateTransactions(object sender, ElapsedEventArgs e)
         {
-            var _accountsService = (IAccountService)((App)Application.Current).ServiceProvider.GetService(typeof(IAccountService));
-            var _transactionService = (ITransactionService)((App)Application.Current).ServiceProvider.GetService(typeof(ITransactionService));
+            var _accountsService = (IAccountService)((App)Current).ServiceProvider.GetService(typeof(IAccountService));
+            var _transactionService = (ITransactionService)((App)Current).ServiceProvider.GetService(typeof(ITransactionService));
+            var _transactionUpdateService = (ITransactionUpdateService)((App)Current).ServiceProvider.GetService(typeof(ITransactionUpdateService));
+            var _balanceService = (IBalanceService)((App)Current).ServiceProvider.GetService(typeof(IBalanceService));
 
             var accounts = _accountsService.GetAccounts();
             foreach(var account in accounts)
@@ -61,7 +66,7 @@ namespace YourVault
                 if(account.bankProvider.Name == "Монобанк")
                 {
                     var integration = new MonoBankIntegraton(account);
-                    List<ViewModels.Transaction> transactions;
+                    List<Models.Transaction> transactions;
                     try {
                         transactions = integration.GetNewTransactions();
                     }
@@ -75,9 +80,14 @@ namespace YourVault
                     {
                         _transactionService.AddTransaction(transaction, false);
                     }
-                    _transactionService.UpdateTransactions();
+                    if (transactions.Count > 0) {
+                        var lastTranasction = transactions.Last();
+                        _balanceService.InsertBalance(new Models.Balance(0, account.ID, lastTranasction.CurrentAmount, lastTranasction.CreatedAt));
+                    }
+                    App.DispatcherQueue.TryEnqueue(() => _transactionService.UpdateTransactions());
                 }
             }
+            App.DispatcherQueue.TryEnqueue(() => _transactionUpdateService.SetUpdateTime());
         }
 
         private void ConfigureServices()
@@ -86,12 +96,15 @@ namespace YourVault
             services.AddSingleton<IAccountService, AccountService>();
             services.AddSingleton<IBankProviderService, BankProviderService>();
             services.AddSingleton<ITransactionService, TransactionService>();
+            services.AddSingleton<ITransactionUpdateService, TransactionUpdateService>();
+            services.AddSingleton<IBalanceService, BalanceService>();
             ServiceProvider = services.BuildServiceProvider();
         }
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
             m_window.Activate();
+            DispatcherQueue = m_window.DispatcherQueue;
         }
 
         private Window m_window;

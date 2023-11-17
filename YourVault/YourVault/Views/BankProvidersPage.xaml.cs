@@ -16,7 +16,7 @@ using Windows.Foundation.Collections;
 using YourVault.Controls;
 using YourVault.Database;
 using YourVault.Services.BankProviders;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 namespace YourVault.Views
 {

@@ -9,9 +9,9 @@ namespace YourVault.Controls.BankProvider.Additional
 {
     public sealed partial class BankProviderComboBoxItem : ComboBoxItem
     {
-        public ViewModels.BankProvider bankProvider;
+        public Models.BankProvider bankProvider;
 
-        public BankProviderComboBoxItem(ViewModels.BankProvider bankProvider)
+        public BankProviderComboBoxItem(Models.BankProvider bankProvider)
         {
             this.bankProvider = bankProvider;
             this.Content = bankProvider.Name;

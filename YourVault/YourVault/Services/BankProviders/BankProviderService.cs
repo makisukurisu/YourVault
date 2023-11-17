@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using YourVault.Database;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 namespace YourVault.Services.BankProviders
 {
@@ -9,11 +9,11 @@ namespace YourVault.Services.BankProviders
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        private ObservableCollection<ViewModels.BankProvider> providers;
+        private ObservableCollection<Models.BankProvider> providers;
 
         public BankProviderService()
         {
-            providers = new ObservableCollection<ViewModels.BankProvider>();
+            providers = new ObservableCollection<Models.BankProvider>();
             UpdateBankProviders();
         }
 

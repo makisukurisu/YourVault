@@ -13,7 +13,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,11 +23,11 @@ namespace YourVault.Controls
     public sealed partial class BankProviderItem : UserControl
     {
         public static readonly DependencyProperty BankProviderProperty =
-        DependencyProperty.Register("bankProvider", typeof(ViewModels.BankProvider), typeof(BankProviderItem), new PropertyMetadata(null, OnBankProviderChanged));
+        DependencyProperty.Register("bankProvider", typeof(Models.BankProvider), typeof(BankProviderItem), new PropertyMetadata(null, OnBankProviderChanged));
 
-        public ViewModels.BankProvider bankProvider
+        public Models.BankProvider bankProvider
         {
-            get { return (ViewModels.BankProvider)GetValue(BankProviderProperty); }
+            get { return (Models.BankProvider)GetValue(BankProviderProperty); }
             set { SetValue(BankProviderProperty, value); }
         }
 

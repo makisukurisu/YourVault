@@ -14,7 +14,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using YourVault.Database;
 using YourVault.Services.Account;
-using YourVault.ViewModels;
+using YourVault.Models;
 using YourVault.Views;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -26,11 +26,11 @@ namespace YourVault.Controls
     {
 
         private IAccountService _accountService;
-        public static readonly DependencyProperty AccountEntity = DependencyProperty.Register("account", typeof(ViewModels.Account), typeof(AccountListItem), new PropertyMetadata(null, OnAccountChanged));
+        public static readonly DependencyProperty AccountEntity = DependencyProperty.Register("account", typeof(Models.Account), typeof(AccountListItem), new PropertyMetadata(null, OnAccountChanged));
         
-        public ViewModels.Account account
+        public Models.Account account
         {
-            get { return (ViewModels.Account)GetValue(AccountEntity); }
+            get { return (Models.Account)GetValue(AccountEntity); }
             set { SetValue(AccountEntity, value); }
         }
         public AccountListItem()

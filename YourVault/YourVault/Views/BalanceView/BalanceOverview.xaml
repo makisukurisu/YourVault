@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="YourVault.Views.BalanceView.BalanceOverview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YourVault.Views.BalanceView"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:balanceControls="using:YourVault.Controls.Balance"
+    xmlns:models="using:YourVault.Models"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="BalanceOverviewTemplate" x:DataType="models:Balance">
+            <ItemContainer>
+                <balanceControls:BalanceOverviewItem balanceRecord="{Binding}"/>
+            </ItemContainer>
+        </DataTemplate>
+    </Page.Resources>
+
+    <ItemsView
+            ItemsSource="{x:Bind BalanceOverwies}"
+            ItemTemplate="{StaticResource BalanceOverviewTemplate}"
+            SelectionMode="Multiple"
+            IsItemInvokedEnabled="False"
+            SelectionChanged="ItemsView_SelectionChanged"
+            x:Name="overviews"
+        >
+        <ItemsView.Layout>
+            <StackLayout Orientation="Horizontal"/>
+        </ItemsView.Layout>
+    </ItemsView>
+</Page>

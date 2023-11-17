@@ -6,13 +6,15 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using YourVault.Models;
+using YourVault.Services.Transaction;
 
 namespace YourVault.Database
 {
     public class TransactionDataAccess
     {
         //tableCommand = "CREATE TABLE IF NOT EXISTS Transactions (ID INTEGER PRIMARY KEY AUTOINCREMENT, externalID NVARCHAR(2048) NULL, AccountID INTEGER NULL, transactionType NVARCHAR(2048) NULL, amount NVARCHAR(2048) NULL, description NVARCHAR(2048) NULL, createdAt DATETIME NULL, fullRecord BLOB NULL)";
-        public static void AddTransaction(ViewModels.Transaction transaction)
+        public static void AddTransaction(Models.Transaction transaction)
         {
             string query = "INSERT INTO Transactions (externalID, AccountID, transactionType, amount, description, createdAt, fullRecord) VALUES (@externalID, @AccountID, @transactionType, @amount, @description, @createdAt, @fullRecord)";
             Dictionary<string, object> parameters = new Dictionary<string, object>
@@ -38,9 +40,9 @@ namespace YourVault.Database
             command.Connection.Close();
         }
 
-        private static ViewModels.Transaction extractFromReader(SqliteDataReader reader)
+        private static Models.Transaction extractFromReader(SqliteDataReader reader)
         {
-            var value = new ViewModels.Transaction();
+            var value = new Models.Transaction();
             value.AccountID = reader.GetInt32(2);
             value.Amount = double.Parse(reader.GetString(4).Replace(".", ","));
             value.CreatedAt = reader.GetDateTime(6);
@@ -52,11 +54,11 @@ namespace YourVault.Database
             return value;
         }
 
-        public static ObservableCollection<ViewModels.Transaction> GetTransactions()
+        public static ObservableCollection<Models.Transaction> GetTransactions()
         {
-            var transactions = new ObservableCollection<ViewModels.Transaction>();
+            var transactions = new ObservableCollection<Models.Transaction>();
             
-            var comand = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, null, new string[] { });
+            var comand = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, null, new string[] { }, "createdAt");
             comand.Connection.Open();
             var reader = comand.ExecuteReader();
 
@@ -68,11 +70,11 @@ namespace YourVault.Database
             return transactions;
         }
 
-        public static ObservableCollection<ViewModels.Transaction> GetTransactions(int accountID)
+        public static ObservableCollection<Models.Transaction> GetTransactions(int accountID)
         {
-            var transactions = new ObservableCollection<ViewModels.Transaction>();
+            var transactions = new ObservableCollection<Models.Transaction>();
 
-            var comand = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, "AccountID = @0", new string[] { accountID.ToString() });
+            var comand = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, "AccountID = @0", new string[] { accountID.ToString() }, "createdAt");
             comand.Connection.Open();
             var reader = comand.ExecuteReader();
 
@@ -84,11 +86,11 @@ namespace YourVault.Database
             return transactions;
         }
 
-        public static ObservableCollection<ViewModels.Transaction> GetTransactions(int accountID, string externalID)
+        public static ObservableCollection<Models.Transaction> GetTransactions(int accountID, string externalID)
         {
-            var transactions = new ObservableCollection<ViewModels.Transaction>();
+            var transactions = new ObservableCollection<Models.Transaction>();
 
-            var command = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, "AccountID = @0 AND externalID = @1", new string[] { accountID.ToString(), externalID });
+            var command = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, "AccountID = @0 AND externalID = @1", new string[] { accountID.ToString(), externalID }, "createdAt");
             command.Connection.Open();
             var reader = command.ExecuteReader();
 
@@ -99,11 +101,11 @@ namespace YourVault.Database
             return transactions;
         }
 
-        public static ObservableCollection<ViewModels.Transaction> GetTransactions(string description)
+        public static ObservableCollection<Models.Transaction> GetTransactions(string description)
         {
-            var transactions = new ObservableCollection<ViewModels.Transaction>();
+            var transactions = new ObservableCollection<Models.Transaction>();
 
-            var comand = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, "description LIKE @0", new string[] { $"%{description}%" });
+            var comand = DataAccess.GetCommand("Transactions", new string[] { "ID", "externalID", "AccountID", "transactionType", "amount", "description", "createdAt", "fullRecord" }, "description LIKE @0", new string[] { $"%{description}%" }, "createdAt");
             comand.Connection.Open();
 
             var reader = comand.ExecuteReader();
@@ -111,6 +113,40 @@ namespace YourVault.Database
             {
                 transactions.Add(extractFromReader(reader));
             }
+            return transactions;
+        }
+
+        internal static ObservableCollection<Transaction> GetTransactionsPage(TransactionSearchParams searchParams)
+        {
+            var transactions = new ObservableCollection<Models.Transaction>();
+
+            string whereClause = " WHERE";
+            if (searchParams.Comment != null)
+            {
+                whereClause += $" AND Transactions.description LIKE '%{searchParams.Comment}%'";
+            }
+            if (searchParams.accountID != null)
+            {
+                whereClause += $" AND Transactions.AccountID = {searchParams.accountID}";
+            }
+            whereClause = whereClause.Replace("WHERE AND", "WHERE");
+            if (whereClause == " WHERE")
+            {
+                whereClause = "";
+            }
+
+            var query = $"SELECT ID, externalID, AccountID, transactionType, amount, description, createdAt, fullRecord FROM Transactions{whereClause} ORDER BY createdAt DESC LIMIT 20 OFFSET {searchParams.page * 20}";
+
+            var connection = DataAccess.GetConnecton();
+            var command = new SqliteCommand(query, connection);
+            command.Connection.Open();
+
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                transactions.Add(extractFromReader(reader));
+            }
+
             return transactions;
         }
     }

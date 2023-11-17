@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 namespace YourVault.Database
 {
@@ -37,6 +37,9 @@ namespace YourVault.Database
                 tableCommand = "CREATE TABLE IF NOT EXISTS Comments (ID INTEGER PRIMARY KEY AUTOINCREMENT, TransactionID INTEGER NULL, comment NVARCHAR(2048) NULL, file BLOB NULL, createdAt DATETIME NULL)";
                 createTable = new SqliteCommand(tableCommand, db);
                 createTable.ExecuteReader();
+                tableCommand = "CREATE TABLE IF NOT EXISTS Balances (ID INTEGER PRIMARY KEY AUTOINCREMENT, AccountID INTEGER NULL, Balance REAL NULL, createdAt DATETIME NULL)";
+                createTable = new SqliteCommand(tableCommand, db);
+                createTable.ExecuteReader();
 
                 tableCommand = "PRAGMA foreign_keys = ON";
                 createTable = new SqliteCommand(tableCommand, db);
@@ -58,6 +61,14 @@ namespace YourVault.Database
                     "END;";
                 createTable = new SqliteCommand(tableCommand, db);
                 createTable.ExecuteReader();
+
+                tableCommand = "CREATE TRIGGER IF NOT EXISTS delete_account_balances " +
+                    "AFTER DELETE ON Accounts " +
+                    "FOR EACH ROW " +
+                    "BEGIN " +
+                    "DELETE FROM Balances WHERE AccountID = OLD.ID;" +
+                    "END;";
+                createTable = new SqliteCommand(tableCommand, db);
 
                 db.Close();
             }
@@ -134,7 +145,7 @@ namespace YourVault.Database
             return new SqliteConnection($"Filename={getDBPath()}");
         }
 
-        public static SqliteCommand GetCommand(string tableName, string[] columns, string whereClause, string[] whereClauseParams)
+        public static SqliteCommand GetCommand(string tableName, string[] columns, string whereClause, string[] whereClauseParams, string orderBy = "", bool ascending = false)
         {
             using (var db = GetConnecton())
             {
@@ -143,6 +154,14 @@ namespace YourVault.Database
                 if (whereClause != null)
                 {
                     tableCommand += $" WHERE {whereClause}";
+                }
+                if (orderBy != "")
+                {
+                    if (!ascending)
+                    {
+                        orderBy += " DESC";
+                    }
+                    tableCommand += $" ORDER BY {orderBy}";
                 }
                 SqliteCommand selectCommand = new SqliteCommand(tableCommand, db);
                 for (int i = 0; i < whereClauseParams.Length; i++)

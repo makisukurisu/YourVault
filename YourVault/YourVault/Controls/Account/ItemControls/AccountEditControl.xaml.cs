@@ -14,7 +14,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using YourVault.Controls.BankProvider.Additional;
 using YourVault.Services.BankProviders;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -26,7 +26,7 @@ namespace YourVault.Controls
     {
 
         private IBankProviderService _bankProviderService;
-        private ViewModels.Account currentAccount;
+        private Models.Account currentAccount;
 
         public AccountEditControl()
         {
@@ -35,7 +35,7 @@ namespace YourVault.Controls
             _bankProviderService = (IBankProviderService)((App)Application.Current).ServiceProvider.GetService(typeof(IBankProviderService));
         }
 
-        public void SetAccount(ViewModels.Account account)
+        public void SetAccount(Models.Account account)
         {
             currentAccount = account;
 
@@ -55,9 +55,9 @@ namespace YourVault.Controls
             AuthInfoTextBox.Text = account.auth_info;
         }
 
-        public ViewModels.Account GetAccount()
+        public Models.Account GetAccount()
         {
-            return new ViewModels.Account(
+            return new Models.Account(
                 id: currentAccount.ID,
                 name: NameTextBox.Text,
                 externalID: ExternalIDTextBox.Text,

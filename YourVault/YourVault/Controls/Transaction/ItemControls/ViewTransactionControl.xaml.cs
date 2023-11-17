@@ -24,7 +24,7 @@ namespace YourVault.Controls.Transaction.ItemControls
         private IAccountService _accountService;
         private ITransactionService _transactionService;
 
-        private ViewModels.Transaction currentTransaction;
+        private Models.Transaction currentTransaction;
 
         public ViewTransactionControl()
         {
@@ -34,7 +34,7 @@ namespace YourVault.Controls.Transaction.ItemControls
             _transactionService = (ITransactionService)((App)Application.Current).ServiceProvider.GetService(typeof(ITransactionService));
         }
 
-        public void setTransacton(ViewModels.Transaction transaction)
+        public void setTransacton(Models.Transaction transaction)
         {
             currentTransaction = transaction;
 

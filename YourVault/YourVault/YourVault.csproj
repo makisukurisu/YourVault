@@ -8,18 +8,49 @@
     <Platforms>x86;x64;ARM64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
+	<EnableMsixTooling>true</EnableMsixTooling>
+    <PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
+    <PackageCertificateThumbprint>EA8EB730C0305008239F31EC6D94FE057A0116DC</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Controls\AccountEditControl.xaml" />
     <None Remove="Controls\AccountListItem.xaml" />
     <None Remove="Controls\Account\ItemControls\AccountCreateControl.xaml" />
+    <None Remove="Controls\Balance\BalanceOverviewItem.xaml" />
+    <None Remove="Controls\Balance\BalanceRecordItem.xaml" />
     <None Remove="Controls\BankProviderItem.xaml" />
     <None Remove="Controls\Transaction\ItemControls\ViewTransactionControl.xaml" />
     <None Remove="Controls\Transaction\TransactionListItem.xaml" />
+    <None Remove="Images\LockScreenLogo.scale-200.png" />
+    <None Remove="Images\SplashScreen.scale-200.png" />
+    <None Remove="Images\Square150x150Logo.scale-200.png" />
+    <None Remove="Images\Square44x44Logo.scale-200.png" />
+    <None Remove="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <None Remove="Images\StoreLogo.png" />
+    <None Remove="Images\Wide310x150Logo.scale-200.png" />
+    <None Remove="Package.appxmanifest" />
     <None Remove="Views\AccountsListPage.xaml" />
+    <None Remove="Views\BalanceListPage.xaml" />
+    <None Remove="Views\BalanceView\BalanceListView.xaml" />
+    <None Remove="Views\BalanceView\BalanceOverview.xaml" />
     <None Remove="Views\BankProvidersPage.xaml" />
     <None Remove="Views\BlankMainPage.xaml" />
     <None Remove="Views\TransactionsListPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\LockScreenLogo.scale-200.png" />
+    <Content Include="Images\SplashScreen.scale-200.png" />
+    <Content Include="Images\Square150x150Logo.scale-200.png" />
+    <Content Include="Images\Square44x44Logo.scale-200.png" />
+    <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Images\StoreLogo.png" />
+    <Content Include="Images\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +60,30 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.2428" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\Square44x44Logo.scale-100.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\BalanceView\BalanceListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\Balance\BalanceRecordItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\BalanceListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +142,18 @@
 
   <ItemGroup>
     <Page Update="Controls\Transaction\ItemControls\ViewTransactionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\Balance\BalanceOverviewItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\BalanceView\BalanceOverview.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

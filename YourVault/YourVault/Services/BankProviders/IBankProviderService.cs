@@ -10,7 +10,7 @@ namespace YourVault.Services.BankProviders
     internal interface IBankProviderService
     {
 
-        ObservableCollection<ViewModels.BankProvider> GetBankProviders();
+        ObservableCollection<Models.BankProvider> GetBankProviders();
 
         public void UpdateBankProviders();
 

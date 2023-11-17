@@ -18,7 +18,7 @@ using YourVault.Controls;
 using YourVault.Controls.Account.ItemControls;
 using YourVault.Database;
 using YourVault.Services.Account;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

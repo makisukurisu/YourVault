@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,10 +23,10 @@ namespace YourVault.Controls.Transaction
     public sealed partial class TransactionListItem : UserControl
     {
 
-        public static readonly DependencyProperty TransactionProperty = DependencyProperty.Register("Transaction", typeof(ViewModels.Transaction), typeof(TransactionListItem), new PropertyMetadata(null, OnTransactionChanged));
-        public ViewModels.Transaction Transaction
+        public static readonly DependencyProperty TransactionProperty = DependencyProperty.Register("Transaction", typeof(Models.Transaction), typeof(TransactionListItem), new PropertyMetadata(null, OnTransactionChanged));
+        public Models.Transaction Transaction
         {
-            get { return (ViewModels.Transaction)GetValue(TransactionProperty); }
+            get { return (Models.Transaction)GetValue(TransactionProperty); }
             set { SetValue(TransactionProperty, value); }
         }
 
@@ -39,11 +40,23 @@ namespace YourVault.Controls.Transaction
             var control = d as TransactionListItem;
             if (control.Transaction is not null)
             {
-                control.IDBlock.Text = control.Transaction.ID.ToString();
+                var color = control.Transaction.account.GetColor();
+                var brush = new AcrylicBrush();
+                brush.TintColor = color;
+                brush.TintOpacity = 0.5;
+                control.AccountElipse.Fill = brush;
+                control.IDBlock.Text = $"#{control.Transaction.ID}";
                 control.ExternalIDBlock.Text = control.Transaction.ExternalID;
                 control.AccountIDBlock.Text = control.Transaction.account.Name;
                 control.TransactionTypeBlock.Text = control.Transaction.TransactionType;
-                control.AmountBlock.Text = control.Transaction.Amount.ToString();
+                string sign = "-";
+                if (control.Transaction.Amount > 0)
+                {
+                    sign = "+";
+                }
+                control.AmountBlock.Text = $"{sign} {Math.Abs(control.Transaction.Amount)}";
+                control.DescriptionBlock.Text = control.Transaction.Description;
+                control.dateTimeBlock.Text = control.Transaction.CreatedAt.ToString(DateTimeFormatInfo.CurrentInfo.FullDateTimePattern);
             }
             else
             {

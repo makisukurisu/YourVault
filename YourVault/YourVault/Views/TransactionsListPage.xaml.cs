@@ -28,7 +28,8 @@ namespace YourVault.Views
     {
 
         private ITransactionService _transactionService;
-        public ObservableCollection<ViewModels.Transaction> transactions { get; set; }
+        public ObservableCollection<Models.Transaction> transactions { get; set; }
+        private int page = 0;
 
         public TransactionsListPage()
         {
@@ -36,7 +37,7 @@ namespace YourVault.Views
             this.InitializeComponent();
 
             _transactionService = (ITransactionService)((App)Application.Current).ServiceProvider.GetService(typeof(ITransactionService));
-            transactions = _transactionService.GetTransactions();
+            transactions = _transactionService.GetTransactionsPage(new TransactionSearchParams(page, null, null));
 
             transactions.CollectionChanged += TransactionChanged;
             TransactionChanged(null, null);
@@ -46,21 +47,42 @@ namespace YourVault.Views
         {
             var root = this.XamlRoot;
             if (root is null) { return; }
-            var Content = root.Content;
+            Grid Content = (Grid)root.Content;
             if (Content is null) { return; }
-            ((NavigationView)Content).Header = $"Всього {transactions.Count} трназакції";
+            ((NavigationView)Content.Children[1]).Header = $"Сторінка №{(_transactionService.searchParams.page + 1)} транзакцій";
+        }
+
+        private void setTransactions()
+        {
+            this.transactions.Clear();
+            var transactions = _transactionService.GetTransactionsPage(null);
+            foreach (Models.Transaction tr in transactions)
+            {
+                this.transactions.Add(tr);
+            }
         }
 
         private void SearchQuery_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var temp = _transactionService.GetTransactions(((TextBox)sender).Text);
-
-            transactions.Clear();
-            foreach (var item in temp)
-            {
-                transactions.Add(item);
-            }
+            _transactionService.searchParams.Comment = ((TextBox)sender).Text;
+            _transactionService.UpdateTransactions();
+            setTransactions();
         }
 
+        private void PreviousPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(_transactionService.searchParams.page > 0) {
+                _transactionService.searchParams.page--;
+            }
+            _transactionService.UpdateTransactions();
+            setTransactions();
+        }
+
+        private void NextPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            _transactionService.searchParams.page++;
+            _transactionService.UpdateTransactions();
+            setTransactions();
+        }
     }
 }

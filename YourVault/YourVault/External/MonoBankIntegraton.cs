@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using YourVault.Database;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 namespace YourVault.External
 {
@@ -17,6 +17,8 @@ namespace YourVault.External
         public long time { get; set; }
         public string description { get; set; }
         public int amount { get; set; }
+
+        public int balance { get; set; }
         //public string fullRecord { get; set; }
     }
 
@@ -26,7 +28,7 @@ namespace YourVault.External
         private string CardID;
         private int AccountID;
 
-        public MonoBankIntegraton(ViewModels.Account account)
+        public MonoBankIntegraton(Models.Account account)
         {
             XToken = account.auth_info;
             CardID = account.ExternalID;
@@ -81,8 +83,8 @@ namespace YourVault.External
                     tr.TransactionType = "Поповнення";
                 }
                 tr.CreatedAt = DateTimeOffset.FromUnixTimeSeconds(int.Parse(MonoTr["time"])).DateTime;
-                //Write a string representation of transaction (Dictionary) to FullRecord
                 tr.FullRecord = JsonConvert.SerializeObject(MonoTr, Formatting.Indented);
+                tr.CurrentAmount = int.Parse(MonoTr["balance"]) / 100.0;
                 transactions.Add(tr);
             }
             return transactions;
@@ -107,5 +109,6 @@ namespace YourVault.External
 
             return newTransactions;
         }
+
     }
 }

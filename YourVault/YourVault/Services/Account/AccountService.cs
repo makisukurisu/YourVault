@@ -8,11 +8,11 @@ namespace YourVault.Services.Account
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        private ObservableCollection<ViewModels.Account> accounts;
+        private ObservableCollection<Models.Account> accounts;
 
         public AccountService()
         {
-            accounts = new ObservableCollection<ViewModels.Account>();
+            accounts = new ObservableCollection<Models.Account>();
             UpdateAccounts();
         }
 
@@ -27,7 +27,7 @@ namespace YourVault.Services.Account
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        public ObservableCollection<ViewModels.Account> GetAccounts()
+        public ObservableCollection<Models.Account> GetAccounts()
         {
             return accounts;
         }

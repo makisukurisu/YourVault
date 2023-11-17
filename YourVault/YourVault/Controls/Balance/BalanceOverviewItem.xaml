@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="YourVault.Controls.Balance.BalanceOverviewItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YourVault.Controls.Balance"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" CornerRadius="12">
+
+    <Grid MinWidth="200" Margin="6, 0, 6, 0" VerticalAlignment="Center" ColumnSpacing="6" Padding="12" BorderThickness="1" CornerRadius="12">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="68"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Create rounded element that will fill two rows and first column, it should be a circle with first letter of an account in it. Background should be chosen at "random", based on ID and Name properties-->
+        <Ellipse x:Name="nameElipse" Grid.Column="0" Fill="Red" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="68"/>
+        <TextBlock x:Name="textOnElipse" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+        <!--In the next column - locate two textblocks, one below another. First one should contain account name, second one - account balance. Both should be aligned to the left side of the column.-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="nameTextBlock" Grid.Row="0" Text="Account Name" VerticalAlignment="Bottom" HorizontalAlignment="Left" FontSize="24" />
+            <TextBlock x:Name="balanceTextBlock" Grid.Row="1" Text="Account Balance" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        </Grid>
+    </Grid>
+</Page>

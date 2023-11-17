@@ -15,7 +15,7 @@ using Windows.Foundation.Collections;
 using YourVault.Controls.BankProvider.Additional;
 using YourVault.Database;
 using YourVault.Services.BankProviders;
-using YourVault.ViewModels;
+using YourVault.Models;
 
 
 namespace YourVault.Controls.Account.ItemControls
@@ -40,7 +40,7 @@ namespace YourVault.Controls.Account.ItemControls
 
         public void CreateAccount()
         {
-            AccountDataAccess.CreateAccount(new ViewModels.Account(
+            AccountDataAccess.CreateAccount(new Models.Account(
                 id: -1,
                 externalID: ExternalIDTextBox.Text,
                 bankProviderID: ((BankProviderComboBoxItem)BankProviderComboBox.SelectedItem).bankProvider.ID,

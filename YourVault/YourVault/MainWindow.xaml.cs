@@ -28,6 +28,9 @@ namespace YourVault
         public MainWindow()
         {
             this.InitializeComponent();
+
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(TitleGrid);
         }
 
         public void NavigateToPage(Type pageType)
@@ -54,7 +57,7 @@ namespace YourVault
                         MainFrame.Navigate(typeof(AccountsListPage));
                         break;
                     case "Balances":
-                        MainFrame.Navigate(typeof(BlankMainPage));
+                        MainFrame.Navigate(typeof(BalanceListPage));
                         break;
                     case "Transactions":
                         MainFrame.Navigate(typeof(TransactionsListPage));

@@ -26,9 +26,9 @@
             <TextBlock x:Name="AccountNameBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
         </StackPanel>
 
-        <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ClickEdit">Edit</Button>
+        <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ClickEdit">Редагувати</Button>
 
-        <Button Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ClickDelete">Delete</Button>
+        <Button Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ClickDelete">Видалити</Button>
     </Grid>
 
 </UserControl>

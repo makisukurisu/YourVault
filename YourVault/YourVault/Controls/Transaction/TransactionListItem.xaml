@@ -8,24 +8,42 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Height="75">
+    <Grid Height="75" ColumnSpacing="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="125"/>
+            <ColumnDefinition MaxWidth="125"/>
         </Grid.ColumnDefinitions>
-        <Grid.ColumnSpacing>12</Grid.ColumnSpacing>
-
-        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Spacing="6">
-            <TextBlock x:Name="IDBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="ExternalIDBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="AccountIDBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="TransactionTypeBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="AmountBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-        </StackPanel>
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Ellipse x:Name="AccountElipse" Fill="Gray" Width="70" Height="70" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="AccountIDBlock" MaxWidth="50" VerticalAlignment="Center" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" x:Name="TransactionTypeBlock" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" x:Name="AmountBlock" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock Grid.Row="2" x:Name="DescriptionBlock" VerticalAlignment="Center" HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" x:Name="IDBlock" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="1" x:Name="ExternalIDBlock" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Grid.Row="2" x:Name="dateTimeBlock" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+            </Grid>
+        </Grid>
 
         <Button Grid.Column="1" Content="Деталі" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="DetailsButton_Click"/>
 
