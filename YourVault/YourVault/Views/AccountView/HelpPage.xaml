@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="YourVault.Views.AccountView.HelpPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YourVault.Views.AccountView"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Margin="12"
+    >
+
+    <Pivot>
+        <PivotItem Header="Загальна інформація">
+            <ScrollViewer>
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Про програму</TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">YourVault це додаток, який дозволяє додати ваші банківські рахунки в одному місці для зручного доступу.</TextBlock>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Які банки підтримує цей додаток?</TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        Наразі є підтримка лише MonoBank, інші банки (такі як Приватбанк, А-Банк, та інші) можуть з'явитися пізніше.
+                        Якщо у вас є пропозиції, чи побажання щодо того, які саме банки ви хотіли б бачити у цьому додатку - створіть обговорення на Github сторінці проекту.
+                    </TextBlock>
+                    <HyperlinkButton Content="Сторінка проекту" NavigateUri="https://github.com/makisukurisu/YourVault/"/>
+                </StackPanel>
+            </ScrollViewer>
+        </PivotItem>
+        <PivotItem Header="Monobank">
+            <ScrollView>
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Отримання інфорамції для акаунтів</TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">Для того щоб отримати токен - перйдіть на сайт API Monobank-у</TextBlock>
+                    <HyperlinkButton Content="Відкрити сайт" NavigateUri="https://api.monobank.ua"/>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        У вашому мобільному клієнті - перейдіть до розділу "Ще" та оберіть опцію "Скканер QR-коду". 
+                        Відскануйте QR-код, який ви бачите у браузері. 
+                        Після підтвердження авторизації - скопійуйте Ваш токен. 
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                        Ви можете власноруч отримати необхідні дані (ID карток) та ввести їх у відповідні поля при створенні акаунту. 
+                        Чи скористатись полем нижче, яке надасть вам інформацію про доступні картки.
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Форма для отримання даних по токену</TextBlock>
+                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}">Ви можете додавати як ваші рахунки, так і Банки!</TextBlock>
+                    <Grid ColumnSpacing="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="MonobankXTokenInput" PlaceholderText="X-Token (Ваш токен)" Grid.Column="0"/>
+                        <TeachingTip x:Name="MonobankXTokenTeachingTip" Target="{x:Bind MonobankXTokenInput}" Title="Помилка!">
+                            <TeachingTip.IconSource>
+                                <FontIconSource Glyph="&#xE783;"/>
+                            </TeachingTip.IconSource>
+                        </TeachingTip>
+                        <Button Content="Отримати дані" Click="GetMonobankData" Grid.Column="1"/>
+                    </Grid>
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">Отримані дані</TextBlock>
+                    <ListView x:Name="MonoClientInfoListView" Header="Інфорамція про клієнта"/>
+                    <ListView x:Name="MonoClientAccountsListView" Header="Рахунки"/>
+                    <ListView x:Name="MonoClientJarsListView" Header="Банки (Jars)"/>
+                </StackPanel>
+            </ScrollView>
+        </PivotItem>
+        <PivotItem Header="Приватбанк">
+            <ScrollViewer>
+                <StackPanel Spacing="12">
+                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">TODO</TextBlock>
+                    <TextBlock Style="{StaticResource BodyTextBlockStyle}">Очікуйте оновлення цього розділу у наступних версіях програми.</TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </PivotItem>
+    </Pivot>
+</Page>

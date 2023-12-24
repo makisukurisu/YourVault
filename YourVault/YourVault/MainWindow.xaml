@@ -35,7 +35,7 @@
                 <NavigationViewItem Content="Транзакції" Icon="Page" Tag="Transactions"/>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="Провайдери" Icon="FourBars" Tag="Providers"/>
+                <NavigationViewItem Content="Довідка" Icon="Help" Tag="Help"/>
                 <NavigationViewItem Content="Налаштування" Icon="Setting" Tag="Settings"/>
             </NavigationView.FooterMenuItems>
 

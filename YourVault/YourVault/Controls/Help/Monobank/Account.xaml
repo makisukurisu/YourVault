@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="YourVault.Controls.Help.Monobank.Account"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YourVault.Controls.Help.Monobank"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid ColumnSpacing="6" RowSpacing="6" Padding="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="0">
+            <RichTextBlock x:Name="AccountID">
+                <Paragraph FontWeight="Bold">ID рахунку:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="AccountType">
+                <Paragraph FontWeight="Bold">Тип рахунку:</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="1">
+            <RichTextBlock x:Name="Balance">
+                <Paragraph FontWeight="Bold">Поточний баланс:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="CreditLimit">
+                <Paragraph FontWeight="Bold">Крдитний ліміт:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="AccountCurrency">
+                <Paragraph FontWeight="Bold">Валюта:</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Spacing="12" Grid.Row="2">
+            <RichTextBlock x:Name="CardNumbers">
+                <Paragraph FontWeight="Bold">Замасковані номери карток:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="IBAN">
+                <Paragraph FontWeight="Bold">Рахунок IBAN:</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="3">
+            <RichTextBlock x:Name="SendID">
+                <Paragraph FontWeight="Bold">Send ID:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="CashbackType">
+                <Paragraph FontWeight="Bold">Тип кешбеку (чи його валюта):</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -10,12 +10,12 @@
   <Identity
     Name="147a0ccb-c607-4220-a206-2d9c548615ba"
     Publisher="CN=Pavlo"
-    Version="1.0.0.0" />
+    Version="1.1.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="147a0ccb-c607-4220-a206-2d9c548615ba" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>YourVault (Package)</DisplayName>
+    <DisplayName>YourVault</DisplayName>
     <PublisherDisplayName>Pavlo</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>

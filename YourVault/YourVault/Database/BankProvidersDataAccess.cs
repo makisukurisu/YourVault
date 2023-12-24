@@ -42,6 +42,10 @@ namespace YourVault.Database
             {
                 provider = new BankProvider(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
             }
+            if (provider is null)
+            {
+                provider = new BankProvider(providerID, "null", "null");
+            }
             command.Connection.Close();
 
             return provider;

@@ -46,7 +46,6 @@ namespace YourVault.Controls
             if(control.account is not null)
             {
                 control.IDBlock.Text = control.account.ID.ToString();
-                control.ExternalIDBlock.Text = control.account.ExternalID;
                 control.BankProviderBlock.Text = control.account.bankProvider.Name;
                 control.AccountNameBlock.Text = control.account.Name;
             }

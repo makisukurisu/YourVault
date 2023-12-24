@@ -20,6 +20,9 @@
     <None Remove="Controls\Balance\BalanceOverviewItem.xaml" />
     <None Remove="Controls\Balance\BalanceRecordItem.xaml" />
     <None Remove="Controls\BankProviderItem.xaml" />
+    <None Remove="Controls\Help\Monobank\Account.xaml" />
+    <None Remove="Controls\Help\Monobank\Jar.xaml" />
+    <None Remove="Controls\Help\Monobank\UserInfo.xaml" />
     <None Remove="Controls\Transaction\ItemControls\ViewTransactionControl.xaml" />
     <None Remove="Controls\Transaction\TransactionListItem.xaml" />
     <None Remove="Images\LockScreenLogo.scale-200.png" />
@@ -31,6 +34,7 @@
     <None Remove="Images\Wide310x150Logo.scale-200.png" />
     <None Remove="Package.appxmanifest" />
     <None Remove="Views\AccountsListPage.xaml" />
+    <None Remove="Views\AccountView\HelpPage.xaml" />
     <None Remove="Views\BalanceListPage.xaml" />
     <None Remove="Views\BalanceView\BalanceListView.xaml" />
     <None Remove="Views\BalanceView\BalanceOverview.xaml" />
@@ -63,9 +67,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\Help\Monobank\UserInfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Controls\Help\Monobank\Account.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Controls\Help\Monobank\Jar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <None Update="Images\Square44x44Logo.scale-100.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Page Update="Views\AccountView\HelpPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <ItemGroup>

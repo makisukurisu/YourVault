@@ -8,14 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:balanceViews="using:YourVault.Views.BalanceView"
     mc:Ignorable="d"
-    Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}"
     Padding="0, 6, 0, 0">
 
     <Grid>
-        <!--
-        Make two rows - one with horizontal scrolling that shows latest balance for all accounts. If you click on an an account - it'll be selected for filtering
-        And in a next row - show all balance changes for selected/all accounts
-        -->
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

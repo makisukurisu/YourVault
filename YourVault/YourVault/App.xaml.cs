@@ -47,7 +47,7 @@ namespace YourVault
 
             ConfigureServices();
 
-            timer = new Timer(TimeSpan.FromSeconds(120).TotalMilliseconds);
+            timer = new Timer(TimeSpan.FromSeconds(60).TotalMilliseconds);
             timer.Start();
             timer.AutoReset = true;
             timer.Elapsed += new ElapsedEventHandler(UpdateTransactions);
@@ -81,10 +81,14 @@ namespace YourVault
                         _transactionService.AddTransaction(transaction, false);
                     }
                     if (transactions.Count > 0) {
-                        var lastTranasction = transactions.Last();
+                        var lastTranasction = transactions.First();
                         _balanceService.InsertBalance(new Models.Balance(0, account.ID, lastTranasction.CurrentAmount, lastTranasction.CreatedAt));
                     }
                     App.DispatcherQueue.TryEnqueue(() => _transactionService.UpdateTransactions());
+                }
+                else
+                {
+                    Console.Write("Unsupported bank provider");
                 }
             }
             App.DispatcherQueue.TryEnqueue(() => _transactionUpdateService.SetUpdateTime());

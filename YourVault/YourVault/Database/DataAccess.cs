@@ -69,6 +69,7 @@ namespace YourVault.Database
                     "DELETE FROM Balances WHERE AccountID = OLD.ID;" +
                     "END;";
                 createTable = new SqliteCommand(tableCommand, db);
+                createTable.ExecuteReader();
 
                 db.Close();
             }

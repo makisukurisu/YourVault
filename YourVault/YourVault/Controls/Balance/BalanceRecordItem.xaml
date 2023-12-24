@@ -16,8 +16,10 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Ellipse x:Name="nameElipse" Grid.Column="0" Fill="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="68"/>
-        <TextBlock x:Name="textOnElipse" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Ellipse x:Name="nameBackground" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Red" Height="68" Width="68"/>
+            <PersonPicture x:Name="nameContainer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="68"/>
+        </Grid>
 
         <Grid Grid.Column="1" VerticalAlignment="Center">
             <Grid.RowDefinitions>

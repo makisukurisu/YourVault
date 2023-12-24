@@ -44,10 +44,10 @@ namespace YourVault.Controls.Transaction
                 var brush = new AcrylicBrush();
                 brush.TintColor = color;
                 brush.TintOpacity = 0.5;
-                control.AccountElipse.Fill = brush;
+                control.nameBackground.Fill = brush;
                 control.IDBlock.Text = $"#{control.Transaction.ID}";
                 control.ExternalIDBlock.Text = control.Transaction.ExternalID;
-                control.AccountIDBlock.Text = control.Transaction.account.Name;
+                control.nameContainer.DisplayName = control.Transaction.account.Name;
                 control.TransactionTypeBlock.Text = control.Transaction.TransactionType;
                 string sign = "-";
                 if (control.Transaction.Amount > 0)

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="YourVault.Controls.Help.Monobank.Jar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YourVault.Controls.Help.Monobank"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid ColumnSpacing="6" RowSpacing="6" Padding="6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="0">
+            <RichTextBlock x:Name="ID">
+                <Paragraph FontWeight="Bold">ID:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="Title">
+                <Paragraph FontWeight="Bold">Назва:</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Spacing="12" Grid.Row="1">
+            <RichTextBlock x:Name="Description">
+                <Paragraph FontWeight="Bold">Опис:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="Currency">
+                <Paragraph FontWeight="Bold">Валюта:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="Balance">
+                <Paragraph FontWeight="Bold">Баланс:</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="2">
+            <RichTextBlock x:Name="Goal">
+                <Paragraph FontWeight="Bold">Ціль:</Paragraph>
+            </RichTextBlock>
+            <RichTextBlock x:Name="SendID">
+                <Paragraph FontWeight="Bold">Send ID:</Paragraph>
+            </RichTextBlock>
+        </StackPanel>
+    </Grid>
+</Page>

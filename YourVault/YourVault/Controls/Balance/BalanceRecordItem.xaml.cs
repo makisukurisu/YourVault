@@ -45,8 +45,8 @@ namespace YourVault.Controls.Balance
                 var brush = new AcrylicBrush();
                 brush.TintColor = color;
                 brush.TintOpacity = 0.5;
-                control.nameElipse.Fill = brush;
-                control.textOnElipse.Text = control.balanceRecord.account.Name[..1];
+                control.nameBackground.Fill = brush;
+                control.nameContainer.DisplayName = control.balanceRecord.account.Name;
                 control.accountNameBlock.Text = control.balanceRecord.account.Name;
 
                 control.balanceValueBlock.Text = $"{control.balanceRecord.Amount}";

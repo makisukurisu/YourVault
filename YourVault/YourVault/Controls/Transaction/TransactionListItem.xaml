@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Ellipse x:Name="AccountElipse" Fill="Gray" Width="70" Height="70" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock x:Name="AccountIDBlock" MaxWidth="50" VerticalAlignment="Center" HorizontalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Ellipse x:Name="nameBackground" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="Gray" Height="68" Width="68"/>
+                <PersonPicture x:Name="nameContainer" HorizontalAlignment="Center" VerticalAlignment="Center" Height="68" Width="68"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>

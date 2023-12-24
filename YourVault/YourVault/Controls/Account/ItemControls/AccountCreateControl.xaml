@@ -9,9 +9,9 @@
     mc:Ignorable="d">
 
     <StackPanel Spacing="12">
-        <TextBox x:Name="NameTextBox" Header="Name" />
-        <TextBox x:Name="ExternalIDTextBox" Header="External ID" />
-        <ComboBox x:Name="BankProviderComboBox" Header="Bank Provider" />
-        <TextBox x:Name="AuthInfoTextBox" Header="Auth Info" AcceptsReturn="True" />
+        <TextBox x:Name="NameTextBox" Header="Назва акаунту" />
+        <TextBox x:Name="ExternalIDTextBox" Header="Зовнішній ID акаунту" />
+        <ComboBox x:Name="BankProviderComboBox" Header="Банк (Провайдер)" />
+        <TextBox x:Name="AuthInfoTextBox" Header="Дані для авторизації" AcceptsReturn="True" />
     </StackPanel>
 </Page>

@@ -14,6 +14,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using YourVault.Views;
+using YourVault.Views.AccountView;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -62,11 +63,11 @@ namespace YourVault
                     case "Transactions":
                         MainFrame.Navigate(typeof(TransactionsListPage));
                         break;
-                    case "Providers":
-                        MainFrame.Navigate(typeof(BankProvidersPage));
-                        break;
                     case "Settings":
                         MainFrame.Navigate(typeof(BlankMainPage));
+                        break;
+                    case "Help":
+                        MainFrame.Navigate(typeof(HelpPage));
                         break;
                     default:
                         MainFrame.Navigate(typeof(BlankMainPage));

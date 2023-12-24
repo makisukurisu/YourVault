@@ -16,15 +16,22 @@
         </Grid.ColumnDefinitions>
         <Grid.ColumnSpacing>12</Grid.ColumnSpacing>
 
-        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Spacing="6">
-            <TextBlock x:Name="IDBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="ExternalIDBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="BankProviderBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-            <AppBarSeparator/>
-            <TextBlock x:Name="AccountNameBlock" Margin="6" VerticalAlignment="Center" MinWidth="100"/>
-        </StackPanel>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MaxWidth="100"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Name="IDBlock" VerticalAlignment="Center" HorizontalAlignment="Center" Text="ID"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Style="{StaticResource SubtitleTextBlockStyle}" x:Name="AccountNameBlock" VerticalAlignment="Center" Text="Name"/>
+                <TextBlock Grid.Row="1" x:Name="BankProviderBlock" VerticalAlignment="Center" Text="Provider"/>
+            </Grid>
+        </Grid>
 
         <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ClickEdit">Редагувати</Button>
 

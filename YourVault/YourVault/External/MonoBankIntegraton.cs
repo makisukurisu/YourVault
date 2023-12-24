@@ -22,6 +22,126 @@ namespace YourVault.External
         //public string fullRecord { get; set; }
     }
 
+    public class Converters
+    {
+        public string ConvertCodeToCurrency(int CurrencyCode)
+        {
+            if (CurrencyCode == 980) { return "UAH"; }
+            if (CurrencyCode == 840) { return "USD"; }
+            if (CurrencyCode == 978) { return "EUR"; }
+            return "👽SD";
+        }
+        public static float CentsToFloat(int? cents)
+        {
+            if (cents.HasValue) {
+                return (float)Math.Round(cents.Value / 100.0f, 2);
+            }
+            else
+            {
+                return -1.0f;
+            }
+        }
+
+    }
+
+    public class MonoBankAccountResponse : Converters
+    {
+
+        [JsonProperty("id")]
+        public string ID { get; set; }
+
+        [JsonProperty("sendId")]
+        public string SendID { get; set; }
+
+        [JsonProperty("balance")]
+        private int _rawBalance { get; set; }
+        public float Balance { get { return CentsToFloat(_rawBalance); } set {; } }
+
+        [JsonProperty("creditLimit")]
+        private int _rawCreditLimit { get; set; }
+        public float CreditLimit { get { return CentsToFloat(_rawCreditLimit); } set {; } }
+
+        [JsonProperty("type")]
+        private string _rawType { get; set; }
+        public string Type {
+            get
+            {
+                string value = _rawType;
+                if (value.Length < 1) { return value; }
+                else
+                {
+                    return string.Concat(value[0].ToString().ToUpper(), value.AsSpan(1));
+                }
+            }
+            set {; }
+        }
+
+        [JsonProperty("currencyCode")]
+        public int CurrencyCode { get; set; }
+        public string Currency { get { return ConvertCodeToCurrency(CurrencyCode); } set { ; } }
+
+        [JsonProperty("cashbackType")]
+        public string CashbackType { get; set; }
+
+        [JsonProperty("maskedPan")]
+        public List<string> MaskedPan { get; set; }
+
+        [JsonProperty("iban")]
+        public string IBAN { get; set; }
+    }
+
+    public class MonoBankJarsResponse : Converters
+    {
+        [JsonProperty("id")]
+        public string ID { get; set; }
+
+        [JsonProperty("sendId")]
+        public string SendID { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("currencyCode")]
+        public int CurrencyCode { get; set; }
+        public string Currency { get { return ConvertCodeToCurrency(CurrencyCode); } set { ; } }
+
+        [JsonProperty("balance")]
+        private int _rawBalance { get; set; }
+        public float Balance { get { return CentsToFloat(_rawBalance); } set { ; } }
+
+        [JsonProperty("goal")]
+        private int? _rawGoal { get; set; }
+        public float Goal { get { return CentsToFloat(_rawGoal); } set { ; } }
+
+
+
+    }
+
+    public class MonoBankClientInfoResponse
+    {
+        [JsonProperty("clientId")]
+        public string ClientID { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("webHookUrl")]
+        public string WebHookURL { get; set; }
+
+        [JsonProperty("permissions")]
+        public string Permissions { get; set; }
+
+        [JsonProperty("accounts")]
+        public List<MonoBankAccountResponse> Accounts { get; set; }
+
+        [JsonProperty("jars")]
+        public List<MonoBankJarsResponse> Jars { get; set; }
+
+    }
+
     public class MonoBankIntegraton
     {
         private string XToken;
@@ -37,10 +157,6 @@ namespace YourVault.External
 
         private List<Transaction> APIGetTransactions()
         {
-            //Make request to: https://api.monobank.ua/personal/statement/{account}/{from}/{to}
-            //Where {account} is card ID
-            //Where {from} is unix timestamp of start date (15 days ago from now)
-            //Where {to} is unix timestamp of end date (now)
             List<Dictionary<string, string>> monoBankTransactions = null;
 
             HttpClient client = new HttpClient();

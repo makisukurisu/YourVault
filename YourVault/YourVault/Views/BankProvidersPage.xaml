@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="using:YourVault.Controls" xmlns:models="using:YourVault.Models"
     mc:Ignorable="d"
-    Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}"
     Padding="0, 6, 0, 0">
 
     <Grid Margin="12" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="500">
